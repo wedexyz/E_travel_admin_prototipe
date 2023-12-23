@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Go pokdarwis</title>
+    <link rel="shortcut icon" href="./icon.png" type="image/png">
+    <link rel="icon" href="./icon.png" type="image/png">
+    <link rel="stylesheet" href="clientcss/bootstrap.min.css">
+    <link rel="stylesheet" href="clientcss/style.css">
+    <link rel="stylesheet" href="clientcss/leaflet.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<audio id="myAudio">
+    <source src="qq.wav" type="audio/ogg">
+</audio>
+
+<body class="auth-false" onload="myFunction(),on()" style="margin:0;">
+<!--nav atas -->
+  <nav id="nav1"class="navbar navbar-dark navbar-expand-md fixed-top bg-success text-white">
+  
+        <a class="text-white navbar-brand" href="#">
+           <i class="fa fa-cog fa-spin" style="font-size:24px ;color: green"><i class="fa fa-cog fa-spin" style="font-size:24px;color:white"></i></i>Go pokdarwis
+       </a>
+  </nav>
+  <div  id="myDiv" class="animate-bottom">
+      <div id="overlay" onclick="off(),CariData()">
+        <div id="loader">
+        <div id="text"><i class="fa fa-cog fa-spin" style="font-size:50px">  <i class="fa fa-cog fa-spin" style="font-size:50px"></i></i>
+        </div>
+        </div>
+      </div>
+  </div>
+
+  <header class="clearfix">
+        <div class="userAuth unauthenticated " style="margin-top:50px">
+            <div class="animate-bottom" id="mapid"  style="height:700px;width:100%;"></div>		
+        </div>
+      
+        <div class="userAuth authenticated pull-left" style=" margin-top: 60px">
+          <button type="button" class="btn btn-success" id="logout"  style="box-shadow: 0 0 8px black;">Logout</button>
+        </div>
+  </header>
+
+      <hr/>
+  <main class="authenticated">
+      <div> 
+          <div class="container animate-top ">
+              <button  type="button"style="border: transparent;background-color:transparent"
+              onclick="CariData()"> <img id="myPic" height="50" alt="Avatar" style="width:50px;  border-radius: 50%;box-shadow: 10px 10px 5px rgb(7, 7, 7);margin-top: 60px">
+            </button>
+          </div>
+
+      </div>
+        <div class="container " style="box-shadow: 0 0 8px black; ">
+          <table id="tabel-status-jsa"  class="table  ">
+              <thead  >
+                <tr>
+                  <th scope="col" style="color: white">Aksi</th>
+                  <th scope="col"style="color:   white">status</th>
+                  <th scope="col" style="color: white">Email</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table> 
+        </div>
+          
+    </main>
+
+  <!-- nav bawah -->
+    <nav id="nav2" class="navbar navbar-expand-md fixed-bottom  " style="z-index: 1030; ">
+        
+       <!--navigasi bar-->
+    
+           <form class="form-inline mt-2 mt-md-0 mx-auto" >
+              
+              <a class="nav-link  text-white " href="https://crud2019.web.app">
+                  <i class="	fa fa-map"style="font-size:24px;padding:5px;color:white"></i> 
+              </a>
+               <a class="nav-link  text-white " href="https://jsa2019bwi.web.app">
+                  <i class="fas fa-location-arrow"style="font-size:24px;padding:5px;color:yellow"></i> 
+              </a>
+            
+              <a class="nav-link  text-white " href="https://user-49128.firebaseapp.com">
+                  <i class="far fas fa-house-damage"style="font-size:24px;padding: 5px;color:white"></i> 
+              </a>
+           </form>
+       
+   </nav>  
+</div>
+<!-- Modal Register -->
+  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Register"    aria-hidden="true"   >
+    <div class="modal-dialog">
+      <div class="modal-content"  >
+        <form id="registerForm" method="POST"  >
+
+          <div class="modal-header">
+            <h1>Register</h1>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+
+            <div class="form-group">
+             
+              <input type="text" class="form-control"id="t4_namauser_jsa_add" placeholder="Nama">
+            </div>
+       
+            <div class="form-group">
+           
+              <input class="form-control" type="text" id="t4_nouser_jsa_add" placeholder="No Telepon">
+            </div>
+     
+            <div class="form-group">
+           
+              <input type="text" class="form-control" id="registerEmail" placeholder="Email">
+          </div>
+ 
+          <input class="form-control" type="text"  id="T4_add" style="display: none">
+            <input class="form-control" type="text" id="t4_user_jsa_add" style="display: none">
+            <input class="form-control"type="text" id="t4_nocus_jsa_add"  style="display: none">
+        
+
+ 
+            <div class="form-group">
+             
+              <input type="password" class="form-control" id="registerPassword" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+            
+              <input type="password" class="form-control" id="registerConfirmPassword" placeholder="Konfirmasi Password">
+            </div>
+            
+            <div class="form-group">
+                <label for="message-text" class="control-label">Photo Url</label>
+                <input type="text" class="form-control" id="myText" style="display: none" >
+            </div>
+
+            <img id="myImg" width="107" height="98">
+            <progress value="0" id="uploader" max="100">0%</progress><br><br> 
+         
+            <input id="photo"class="file"type="file" name="mainimage"value="" onchange="getfile()">
+            <br><br> 
+  
+            <button id="submit_link"type="submit" name="button" style="display: none">Save</button> 
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary"onclick="addData_Proses()" id="doRegister">Register</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal Login-->
+  <div   class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="loginForm" method="POST">
+          <div class="modal-header">
+            <h4 class="modal-title" id="loginModalLabel">Login</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Email:</label>
+              <input type="text" class="form-control" id="loginEmail">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="control-label">Password:</label>
+              <input type="password" class="form-control" id="loginPassword">
+            </div>
+          </div>
+          <div class="modal-footer">
+                
+           
+            <button type="submit" class="btn btn-success"onclick="CariData()" id="doLogin">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Update -->
+<div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="ModalUpdateLabel"
+aria-hidden="true" >
+
+<div class="modal-dialog" role="document" style="max-width: 100%;margin:0px" >
+  <div class="modal-content" style="background-color: transparent;width: 100%">
+    
+    <div class="modal-body" style="height: 900px">
+       
+      <div class="modal-footer" id="myDIV" style="display:none;margin-bottom: 400px">
+          <input type="button" class=" btn btn-danger animate-bottom "style="background-color:red;box-shadow: 0 0 10px black;"
+          onclick="myClear(),updateData_Proses(),CariData(),pauseAudio(),keluar(),Sembunyikan()" value="offline" data-dismiss="modal" >
+          <div class="container animate-bottom " id="sembunyi" style="display:none;padding-top: 40px;box-shadow: 0 0 8px black;">
+              <div class="row">
+                <div class="col mx-auto">
+                  <a  id = "pon-link" target="_blank">     <h6  id = "ponstatus"></h6>  </a>
+                </div>
+                <div class="col mx-auto">
+                  <h6 id="status"></h6>
+                  <a  id = "map-link" target="_blank" ></a>
+                </div>
+              </div>
+            <h6 id = "rtcstatus"></h6>
+              <a type="button"class="btn btn-success" id = "rtc-link" target="_blank" style="color: white;display: none"> video call</a>
+          </div>
+          <form id="myForm" style="margin-top: 10px">
+
+              <h6 style="color:white" > Nama Pemesan</h6>
+              <input class="form-control " id="t4_namaclient_jsa" style="background-color: transparent;border-color: transparent;">
+              <h6 style="color:white" > Nomer Pemesan</h6>
+              <input class="form-control" id="t4_nocus_jsa"style="background-color: transparent;border-color: transparent" >
+              <h6 style="color:white" > Koordinat</h6>
+              <input class="form-control" type="text" id="t4_latclient_jsa" style="background-color: transparent;border-color: transparent">
+              <input class="form-control"  type="text" id="t4_longclient_jsa"style="background-color: transparent;border-color: transparent" >
+        
+            </form>
+
+    </div>
+    
+ <div class="row " style="margin-bottom:40px;" id="manu_masuk">
+  <div class="col ">
+
+    <button onclick="motor(),myClear(),updateData_Proses(),CariData(),pauseAudio()" style='border-radius: 10px;background-color: black;box-shadow: 0 0 10px black;margin-top: 10px'>  <img src="img/motor.jpg" height="100" alt="Avatar" style="width:100px;"> <h6> Jasa motor</h6> 
+    </button>
+    <hr>
+    <button onclick="mobil(),myClear(),updateData_Proses(),CariData(),pauseAudio()"style='border-radius: 10px;background-color: black;box-shadow: 0 0 10px black;'> <img src="img/travel mobil.jpg" height="100" alt="Avatar" style="width:100px;"> <h6>Jasa mobil</h6> 
+    </button>
+    <hr>
+    <button onclick="bus(),myClear(),updateData_Proses(),CariData(),pauseAudio()" style='border-radius: 10px;background-color: black;box-shadow: 0 0 10px black;margin-top: 10px'>  <img src="img/bus travel.jpg" height="100" alt="Avatar" style="width:100px;"> <h6> Jasa bus</h6> 
+    </button>
+    <hr>
+
+    <button onclick="offline(),updateData_Proses(),CariData(),geoPon(),geoFindMe(),pauseAudio(),keluar(),Sembunyikan()"style="background-color:blue;border-radius: 10px;box-shadow: 0 0 10px black;">
+    <i class='	fas fa-power-off' style='color:rgb(251, 255, 0);'></i><h6>Informasi</h6> 
+    </button>
+
+</div>
+
+ </div>
+<input type="text" name="" id="t4_user_jsa" style="display: none">
+    <input class="form-control"type="text"id="t4_namauser_jsa" style="display: none">
+    <input class="form-control" type="text" id="T4" style="display: none">
+    <input class="form-control" type="text" id="t4_nouser_jsa"  style="display: none">
+ 
+  </div>
+</div>
+</div>
+</div>
+<!-- Modal loading -->
+  <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="Message" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h4 class="modal-title" id="messageModalLabel">Message</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-footer">
+          <div class="pre-auth">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <span class="">
+              <button type="submit" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#registerModal">Register</button>
+              <button type="submit" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Login</button>
+            </span>
+          </div>
+          <div class="post-auth"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+		
+
+  <script src="clientjs/jquery-3.2.1.slim.min.js"></script>
+  <script src="clientjs/pooper.min.js"></script>
+  <script src="clientjs/bootsratp.min.js"></script>
+  <script src="clientjs/firebase.js"></script>
+  <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+  <script src="clientjs/script.js"></script>
+  <script src="clientjs/sel.map.js"></script>
+  <script src="clientjs/sel.rtc.js"></script>
+  <script src="clientjs/sel.telpon.js"></script>
+  <script src="clientjs/map.js"></script>
+  <script src="clientjs/hiden.js"></script>
+  <script src="clientjs/reset.js"></script>
+  <script src="clientjs/poto.js"></script>
+  <script src="clientjs/sound.js"></script>
+  <script src="clientjs/overlay.js"></script>
+  <script src="clientjs/loading.js"></script>
+
+<script>
+  
+  
+function motor(){
+    document.getElementById("t4_user_jsa").value="motor aktif"; 
+}
+function mobil(){
+    document.getElementById("t4_user_jsa").value="mobil aktif"; 
+}
+function bus(){
+    document.getElementById("t4_user_jsa").value="bus aktif"; 
+}
+function offline(){
+    document.getElementById("t4_user_jsa").value="offline"; 
+
+
+}
+
+
+  
+  
+  </script>
+
+
+</body>
+</html>
